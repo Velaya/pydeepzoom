@@ -1,6 +1,6 @@
 # pydeepzoom
 
-An API for generating deepzoom tile pyramids from images gvien via URL. The API is a python implementation of the DeepZoomService from the HBZ (https://github.com/hbz/DeepZoomService)
+An API for generating deepzoom tile pyramids from images given via URL. The API is a python implementation of the DeepZoomService from the HBZ (https://github.com/hbz/DeepZoomService)
 
 ## Installation
 
