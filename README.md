@@ -107,5 +107,5 @@ should return a json response like this:
 
 ## Usage
 
-See https://github.com/hbz/DeepZoomService#Usage
+See https://github.com/hbz/DeepZoomService#usage
     
