@@ -21,7 +21,7 @@ An API for generating deepzoom tile pyramids from images gvien via URL. The API 
 #### 3. Setup
 
     cd pydeepzoom
-    source ../../bin/activate
+    source ../bin/activate
     python setup.py develop
   
 
