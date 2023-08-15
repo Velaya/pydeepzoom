@@ -17,8 +17,11 @@ class DomainCheck():
 
 
 	def isAllowedDomain(self):
-		if (self.isInList(self.whitelist)):
-			allowed = True
+		allowed = True
+		if len(self.whitelist) > 0:
+			allowed = False
+			if (self.isInList(self.whitelist)):
+				allowed = True
 		if (self.isInList(self.blacklist)):
 			allowed = False
 		return allowed

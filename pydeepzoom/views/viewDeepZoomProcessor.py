@@ -1,11 +1,9 @@
 import logging
 log = logging.getLogger(__name__)
 
-from pyramid.response import Response
-from pyramid.response import FileResponse
-from pyramid.renderers import render_to_response
+from pyramid.response import Response, FileResponse
 from pyramid.view import (view_config, view_defaults)
-from pyramid.httpexceptions import HTTPFound, HTTPNotFound, HTTPSeeOther
+from pyramid.httpexceptions import HTTPFound, HTTPNotFound, HTTPSeeOther, exception_response
 from configparser import ConfigParser
 config = ConfigParser()
 config.read('./pydeepzoom/config.ini')
@@ -37,7 +35,7 @@ class DeepZoomProcessorView(object):
 		
 		
 	
-	@view_config(route_name='deepzoom', renderer='json')
+	@view_config(route_name='deepzoom', renderer='jsonp')
 	def deepzoomprocessorview(self):
 		#pudb.set_trace()
 		
@@ -50,7 +48,7 @@ class DeepZoomProcessorView(object):
 		
 		domaincheck = DomainCheck(imageurl)
 		if domaincheck.isAllowedDomain() is False:
-			return exception_response(403, detail='Domain of image url is not allowed')
+			raise exception_response(403, detail='Domain of image url is not allowed')
 		
 		jsondict = {}
 		urlfilename = url2filename(imageurl)
@@ -81,7 +79,7 @@ class DeepZoomProcessorView(object):
 				tempfilepath = cachedimage.createTempFile()
 				
 			except ValueError:
-				return exception_response(400, detail='image url does not provide a valid image')
+				raise exception_response(400, detail='image url does not provide a valid image')
 			
 			tilesgenerator = TilesGenerator(cachedimage, self.tilesdir + '/' + urlfilename)
 			jsondict = dzi2json(os.getcwd() + '/' + dzifile)
@@ -91,15 +89,9 @@ class DeepZoomProcessorView(object):
 		if os.path.isfile(dzimarker):
 			os.remove(dzimarker)
 		
-		jsondict['Url'] = self.request.application_url + '/tilesCache/' + urlfilename + '_files'
+		jsondict['Url'] = self.request.application_url + '/tilesCache/' + urlfilename + '_files/'
 		
 		
 		return jsondict
 		
-		'''
-		
-		response = FileResponse(targetfile, content_type='image/' + targetfileformat)
-		response.headers['Content-Disposition'] = ("filename={0}.{1}".format('image', targetfileformat))
-		
-		return response
-		'''
+
