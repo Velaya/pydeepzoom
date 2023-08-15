@@ -87,5 +87,25 @@ To use the API in production you can set up a proxy in your webserver that redir
 
 The configuration in **development.ini** allows you to use the API with the url **http://localhost:6550** for testing and development
 
+#### 7 Start the Webservice
 
+The API is started with:
 
+    pserve production.ini
+
+or
+
+    pserve development.ini
+
+A request to the API like:
+
+    https://localhost/pydeepzoom/deepzoom?imageUrl=https://physalia.evolution.uni-bonn.de/dumping/Images/Blankenberge_Havenplein.tiff
+
+should return a json response like this:
+
+    {"Format": "jpeg", "Overlap": "1", "TileSize": "254", "Size": {"Height": "3125", "Width": "12617"}, "Url": "https://localhost/pydeepzoom/tilesCache/physalia_evolution_uni_bonn_de_dumping_Images_Blankenberge_Havenplein_tiff_files/"}
+
+## Usage
+
+See https://github.com/hbz/DeepZoomService
+    
