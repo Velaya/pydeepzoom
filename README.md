@@ -7,7 +7,7 @@ An API for generating deepzoom tile pyramids from images given via URL. The API 
 ### Requirements
 
   - python3.8 +
-  - libvips
+  - libvips (e.g. in Ubuntu: libvips42, libvips-tools, libvips-dev) 
 
 #### 1. Create Virtual Environment
 
