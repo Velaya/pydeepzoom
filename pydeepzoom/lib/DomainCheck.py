@@ -7,13 +7,29 @@ from configparser import ConfigParser
 config = ConfigParser()
 config.read('./pydeepzoom/config.ini')
 
+import logging
+log = logging.getLogger('pydeepzoom')
+
 class DomainCheck():
 	def __init__(self, url):
+		
 		urldict = urlparse(url)
 		self.domain = urldict.netloc
 		
-		self.whitelist = [wl.strip() for wl in config.get('allowed_domains', 'whitelist', fallback = '').split(',')]
-		self.blacklist = [bl.strip() for bl in config.get('allowed_domains', 'blacklist', fallback = '').split(',')]
+		self.whitelist = []
+		self.blacklist = []
+		
+		wl = config.get('allowed_domains', 'whitelist', fallback = '')
+		bl = config.get('allowed_domains', 'blacklist', fallback = '')
+		
+		if wl != '':
+			self.whitelist = [wl.strip() for wl in config.get('allowed_domains', 'whitelist', fallback = '').split(',')]
+		if bl != '':
+			self.blacklist = [bl.strip() for bl in config.get('allowed_domains', 'blacklist', fallback = '').split(',')]
+		
+		log.debug('whitelist {0}'.format(', '.join(self.whitelist)))
+		log.debug('blacklist {0}'.format(', '.join(self.blacklist)))
+		log.debug('url domain {0}'.format(self.domain))
 
 
 	def isAllowedDomain(self):
