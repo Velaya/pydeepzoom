@@ -13,7 +13,7 @@ config.read('./pydeepzoom/config.ini')
 # from https://www.codementor.io/aviaryan/downloading-files-from-urls-in-python-77q3bs0un
 
 class CachedImage():
-	def __init__(self, imageurl, urlfilename):
+	def __init__(self, imageurl):
 		self.imageurl = imageurl
 		self.cachedir = config.get('tiles_cache', 'dir', fallback = './tilescache')
 		self.tempdir = config.get('tiles_cache', 'tempdir', fallback = './temp')

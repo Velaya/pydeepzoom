@@ -8,9 +8,9 @@ config.read('./pydeepzoom/config.ini')
 
 
 class TilesGenerator():
-	def __init__(self, cachedimage, dzifile):
+	def __init__(self, cachedimage, dzipath):
 		self.cachedimage = cachedimage
-		self.dzifile = dzifile
+		self.dzipath = dzipath
 		
 		self.loadImage()
 		self.writeTiles()
@@ -20,7 +20,7 @@ class TilesGenerator():
 		self.img = pyvips.Image.new_from_file(self.cachedimage.getFilePath())
 	
 	def writeTiles(self):
-		self.img.dzsave(self.dzifile)
+		self.img.dzsave(self.dzipath)
 	
 	'''
 	def writeImage(self):
