@@ -59,8 +59,10 @@ class CachedImage():
 	
 	def readImage(self):
 		self.image = Image.open(self.cachedfile.name)
+		'''
 		if self.image.format.lower() not in self.known_formats:
 			raise ValueError('class ImageCache: image url does not reference an accepted image format')
+		'''
 	
 	def setImageInfo(self):
 		self.height = self.image.height
