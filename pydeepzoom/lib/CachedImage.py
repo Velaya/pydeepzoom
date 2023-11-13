@@ -9,6 +9,8 @@ from configparser import ConfigParser
 config = ConfigParser()
 config.read('./pydeepzoom/config.ini')
 
+import logging
+log = logging.getLogger('pydeepzoom')
 
 # from https://www.codementor.io/aviaryan/downloading-files-from-urls-in-python-77q3bs0un
 
@@ -27,6 +29,9 @@ class CachedImage():
 		self.fileformat = self.readFileFormat()
 		if self.fileformat is None:
 			raise ValueError('class ImageCache: image url does not reference an image')
+
+		log.info(self.imageurl)
+		log.info(self.fileformat)
 
 
 	def createTempFile(self):

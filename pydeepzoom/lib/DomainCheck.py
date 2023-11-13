@@ -15,7 +15,6 @@ class DomainCheck():
 		self.whitelist = [wl.strip() for wl in config.get('allowed_domains', 'whitelist', fallback = '').split(',')]
 		self.blacklist = [bl.strip() for bl in config.get('allowed_domains', 'blacklist', fallback = '').split(',')]
 
-
 	def isAllowedDomain(self):
 		allowed = True
 		if len(self.whitelist) > 0:

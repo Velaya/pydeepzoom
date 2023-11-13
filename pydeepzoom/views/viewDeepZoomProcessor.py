@@ -46,6 +46,8 @@ class DeepZoomProcessorView(object):
 		if imageurl is None:
 			return HTTPNotFound()
 		
+		log.info(imageurl)
+
 		domaincheck = DomainCheck(imageurl)
 		if domaincheck.isAllowedDomain() is False:
 			raise exception_response(403, detail='Domain of image url is not allowed')
