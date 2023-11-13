@@ -37,7 +37,6 @@ class DeepZoomProcessorView(object):
 	
 	@view_config(route_name='deepzoom', renderer='jsonp')
 	def deepzoomprocessorview(self):
-		#pudb.set_trace()
 		
 		requestparams = RequestParameters(self.request)
 		requestparams.readRequestParams()
@@ -56,6 +55,7 @@ class DeepZoomProcessorView(object):
 		urlfilename = url2filename(imageurl)
 		tempfilepath = None
 		
+		dzipath = self.tilesdir + '/' + urlfilename
 		dzifile = self.tilesdir + '/' + urlfilename + '.dzi'
 		dzimarker = self.tilesdir + '/' + urlfilename + '.dzi.part'
 		
@@ -77,13 +77,14 @@ class DeepZoomProcessorView(object):
 			fd.close()
 			
 			try:
-				cachedimage = CachedImage(imageurl, urlfilename)
+				cachedimage = CachedImage(imageurl)
 				tempfilepath = cachedimage.createTempFile()
 				
-			except ValueError:
+			except:
+				os.remove(dzimarker)
 				raise exception_response(400, detail='image url does not provide a valid image')
 			
-			tilesgenerator = TilesGenerator(cachedimage, self.tilesdir + '/' + urlfilename)
+			tilesgenerator = TilesGenerator(cachedimage, dzipath)
 			jsondict = dzi2json(os.getcwd() + '/' + dzifile)
 			
 			cachedimage.closeTempFile()
