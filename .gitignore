@@ -3,5 +3,5 @@ pydeepzoom.egg-info/**
 tilescache/**
 temp/**
 *.ini
-
-
+/venv/
+/.idea/

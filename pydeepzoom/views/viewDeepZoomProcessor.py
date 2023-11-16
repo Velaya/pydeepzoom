@@ -55,7 +55,7 @@ class DeepZoomProcessorView(object):
 		urlfilename = url2filename(imageurl)
 		tempfilepath = None
 		
-		dzipath = self.tilesdir + '/' + urlfilename
+		dzipath = self.tilesdir + urlfilename
 		dzifile = self.tilesdir + '/' + urlfilename + '.dzi'
 		dzimarker = self.tilesdir + '/' + urlfilename + '.dzi.part'
 		
