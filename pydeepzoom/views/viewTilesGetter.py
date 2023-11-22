@@ -31,8 +31,7 @@ class TilesGetterView(object):
 		dirnum = self.request.matchdict['dirnum']
 		filename = self.request.matchdict['filename']
 		
-		#filepath = self.tilesdir + '/' + imageurl + '/' + dirnum + '/' + filename
-		filepath = self.tilesdir + '/' + imageurl + dirnum + '/' + filename
+		filepath = self.tilesdir + '/' + imageurl + '/' + dirnum + '/' + filename
 
 		
 		if os.path.isfile(filepath):
