@@ -12,6 +12,7 @@ config.read('./pydeepzoom/config.ini')
 
 import pudb
 import json
+import mimetypes
 import time
 import os
 
@@ -31,11 +32,18 @@ class TilesGetterView(object):
 		dirnum = self.request.matchdict['dirnum']
 		filename = self.request.matchdict['filename']
 		
-		filepath = self.tilesdir + '/' + imageurl + '/' + dirnum + '/' + filename
+		# filepath = self.tilesdir + '/' + imageurl + '/' + dirnum + '/' + filename
+		filepath = os.path.join(self.tilesdir, imageurl, dirnum, filename)
 
-		
 		if os.path.isfile(filepath):
-			response = FileResponse(filepath, content_type='image/' + 'jpeg')
+			# Use mimetypes library to determine the correct MIME type for the file
+			content_type, _ = mimetypes.guess_type(filepath)
+
+			# Fall back to a generic binary response if the mimetype cannot be determined
+			if not content_type:
+				content_type = 'application/octet-stream'
+
+			response = FileResponse(filepath, content_type=content_type)
 			response.headers['Content-Disposition'] = ("filename={0}".format(filename))
 			
 			return response
